@@ -6,13 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'",
-    "prisma:generate": "npx dotenv -e environments/.env.development -- prisma generate --schema=prisma/schema.prisma",
-    "prisma:migrate": "npx dotenv -e environments/.env.development -- prisma migrate dev --schema=prisma/schema.prisma",
-    "prisma:studio": "npx dotenv -e environments/.env.development -- prisma studio --schema=prisma/schema.prisma",
-    "prisma:generate:prod": "npx dotenv -e environments/.env.production -- prisma generate --schema=prisma/schema.prisma",
-    "prisma:migrate:prod": "npx dotenv -e environments/.env.production -- prisma migrate deploy --schema=prisma/schema.prisma",
-    "prisma:studio:prod": "npx dotenv -e environments/.env.production -- prisma studio --schema=prisma/schema.prisma"
+    "dev": "nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'"
   },
   "dependencies": {
     "express": "^4.18.2",
