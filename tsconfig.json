@@ -3,17 +3,17 @@
     "target": "ES2020",
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./src", // Change from "./" to "./src"
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"], // Update to point to src
-      "@prisma/*": ["src/prisma/*"]
+      "@/*": ["./src/*"],
+      "@prisma/*": ["./src/prisma/*"] // Update to point to src/prisma
     }
   },
-  "include": ["src/**/*", "src/prisma/**/*"],
+  "include": ["src/**/*"], // Remove prisma/**/* since it’s now under src/
   "exclude": ["node_modules"]
 }
