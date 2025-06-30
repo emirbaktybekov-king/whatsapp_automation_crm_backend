@@ -1,26 +1,26 @@
-# ✅ 1. Use node:18-slim as base (alpine is problematic for Prisma binary)
-FROM node:18-slim
+# ✅ Use Debian 11 slim (has libssl1.1)
+FROM node:18-bullseye-slim
 
-# ✅ 2. Set working directory
+# Set working dir
 WORKDIR /app
 
-# ✅ 3. Install required packages (curl, OpenSSL 1.1, etc.)
+# Install dependencies including libssl1.1
 RUN apt-get update && \
     apt-get install -y curl openssl libssl1.1 ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-# ✅ 4. Copy package files and install dependencies
+# Copy package files and install
 COPY package.json package-lock.json* ./
 RUN npm install
 
-# ✅ 5. Copy all source code
+# Copy rest of app
 COPY . .
 
-# ✅ 6. Generate Prisma client
+# Generate Prisma client
 RUN npx prisma generate
 
-# ✅ 7. Expose app port
+# Expose port
 EXPOSE 3000
 
-# ✅ 8. Start the app
+# Start
 CMD ["npm", "run", "start"]
