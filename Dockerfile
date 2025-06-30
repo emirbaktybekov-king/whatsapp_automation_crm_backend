@@ -1,17 +1,26 @@
-FROM node:18-alpine
+# ✅ 1. Use node:18-slim as base (alpine is problematic for Prisma binary)
+FROM node:18-slim
 
+# ✅ 2. Set working directory
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+# ✅ 3. Install required packages (curl, OpenSSL 1.1, etc.)
+RUN apt-get update && \
+    apt-get install -y curl openssl libssl1.1 ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
+# ✅ 4. Copy package files and install dependencies
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# ✅ 5. Copy all source code
 COPY . .
 
-RUN yarn build
+# ✅ 6. Generate Prisma client
+RUN npx prisma generate
 
-# Указываем явный путь к schema.prisma
-RUN npx prisma generate --schema=src/prisma/schema.prisma
+# ✅ 7. Expose app port
+EXPOSE 3000
 
-EXPOSE 3000 8081
-
-CMD ["node", "dist/index.js"]
+# ✅ 8. Start the app
+CMD ["npm", "run", "start"]
