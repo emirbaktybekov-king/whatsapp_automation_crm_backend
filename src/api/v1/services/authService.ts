@@ -1,4 +1,4 @@
-import prisma from "@prisma/prismaClient";
+import prisma from "../../../prisma/prismaClient";
 import { generateTokens, verifyRefreshToken } from "../config/jwtConfig";
 
 export const loginUser = async (email: string, password: string) => {
